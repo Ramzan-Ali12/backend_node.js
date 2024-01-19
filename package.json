@@ -1,15 +1,21 @@
 {
-  "name": "test_task_backend",
+  "name": "CRUD",
   "version": "1.0.0",
-  "description": "AUthentication+CRUD application",
+  "description": "AUthentication and CRUD application",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ramzan-Ali12/backend_node.js.git"
+    "url": "git+https://github.com/Ramzan-Ali12/backend_node.js.git"
   },
   "author": "Ramzan ALI",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.2",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.0"
+  }
 }
