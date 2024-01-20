@@ -1,17 +1,12 @@
-const express = require('express');
-require('../middleware/logger')();
-const { dbError } = require('../middleware/error');
+const express = require("express");
 
-const { pms } = require('../routes');
+const { pms } = require("../routes");
 
 const app = express.Router();
 
-app.use(express.urlencoded({ extended: true}));
-app.use(express.json({ limit: '100mb' }));
-app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
-app.use('/api/', pms);
-
-app.use(dbError);
+app.use("/api/", pms);
 
 module.exports = app;
