@@ -1,4 +1,5 @@
 
+// .....validate Request........//
 const Validator = (schema, params) => async (req, res, next) => {
   try {
     await schema.validate(
@@ -21,4 +22,5 @@ const Validator = (schema, params) => async (req, res, next) => {
     });
   }
 };
+// ....export validate....//
 module.exports = { Validator };

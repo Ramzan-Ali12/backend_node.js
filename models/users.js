@@ -1,9 +1,12 @@
 // user model
 "use-strict";
+// .....dotenv..........//
 require("dotenv").config();
+//....mongoose.........//
 const mongoose = require("mongoose");
+//.....jsonWetToken.......//
 const jwt = require("jsonwebtoken");
-
+//......User Schema.......//
 const users = new mongoose.Schema(
   {
     name: {
@@ -33,6 +36,7 @@ const users = new mongoose.Schema(
     timestamps: true,
   }
 );
+// .......generateToke............//
 users.methods.generateToken = function () {
   const maxAge = 3 * 24 * 60 * 60;
 
@@ -48,5 +52,5 @@ users.methods.generateToken = function () {
 
   return token;
 };
-
+// ........export users model...........//
 module.exports = mongoose.model("users", users);

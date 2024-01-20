@@ -1,3 +1,4 @@
+//......Email Template for senVarificationEmail........//
 const sendVerificationEmail = ({ name, code }) => {
   return `
       <!DOCTYPE html>

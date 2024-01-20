@@ -1,6 +1,10 @@
+//......yup.........//
 const yup = require("yup");
+//........passwordPattern.......//
 const { passwordPattern } = require("../../utils/validationHelper");
+// .......timeZones............//
 const { timeZones } = require("../../utils/helper");
+// .........validateSignUp.........//
 module.exports.validateSignUp = yup.object({
   name: yup
     .string()
@@ -28,6 +32,7 @@ module.exports.validateSignUp = yup.object({
     .oneOf(timeZones, "Invalid Time Zone")
     .required("Time Zone is requried"),
 });
+// .........validateLogin.........//
 module.exports.validateLogin = yup.object({
   email: yup
     .string()

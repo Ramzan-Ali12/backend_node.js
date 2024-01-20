@@ -1,13 +1,19 @@
-const User = require("../../models/users");
+//.....hasPassword.......//
 const bcrypt = require("bcrypt");
+//.......sendEmail using nodeMailer......//
 const { nodeMailer } = require("../../utils/helper");
+//.....user model..........//
+const User = require("../../models/users");
+//......emailTemplate......//
 const sendVerificationEmail = require("../../email-templates/varification-code");
-
+//....... Login..............//
 const login = async (req, res) => {
   try {
     let { email, password } = req.body;
+    // convert email to lowerCase
     email = email.toLowerCase();
     let user = null;
+    // find user
     user = await User.findOne({
       email,
     });
@@ -25,22 +31,25 @@ const login = async (req, res) => {
     if (!valid) {
       return res.status(400).send({ msg: "Invalid Password!" });
     }
+    // user data
     const data = {
       id: user._id,
       email: user.email,
       name: user.name,
       status: user.status,
     };
+    // generateToken
     const token = user.generateToken();
 
     return res
       .header("authorization", token)
       .status(200)
       .send({ msg: "Login Successful", data });
-  } catch (error) {
+  } catch (err) {
     res.status(500).send({ msg: err.message });
   }
 };
+//........SignUp............//
 const signUp = async (req, res) => {
   try {
     let { name, email, password, status, timeZone } = req.body;
@@ -55,13 +64,16 @@ const signUp = async (req, res) => {
       return res
         .status(404)
         .send({ msg: "Account Already Associated With This Email!" });
+
     // generate otp
     const otp = Math.floor(Math.random() * 9000) + 1000;
+    // otpAddedAt
     const otpAddedAt = new Date();
     // generate salt
     const salt = await bcrypt.genSalt(10);
     // bcrypt to hash password
     password = await bcrypt.hash(password, salt);
+    // initialize user model
     const data = new User({
       name,
       email,
@@ -88,4 +100,5 @@ const signUp = async (req, res) => {
     res.status(500).send({ msg: err.message });
   }
 };
+// export modules
 module.exports = { login, signUp };

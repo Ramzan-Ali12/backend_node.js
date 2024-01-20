@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+// createTransport using nodemailer
 const mailTransporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
@@ -8,9 +9,11 @@ const mailTransporter = nodemailer.createTransport({
     pass: process.env.NODEMAILER_PASS,
   },
 });
+// send email using nodemailer
 const nodeMailer = async ({ to, subject, html }) => {
   let emailSent = true;
   try {
+    // call the transported method
     await mailTransporter.sendMail({
       to,
       from: process.env.NODEMAILER_USER,
@@ -24,7 +27,7 @@ const nodeMailer = async ({ to, subject, html }) => {
 
   return emailSent;
 };
-
+// timeZones 
 const timeZones = [
   "Asia/Karachi",
   "Asia/Dubai",
@@ -32,4 +35,5 @@ const timeZones = [
   "Asia/Muscat",
   "Asia/Qatar",
 ];
+// exports the module
 module.exports = { timeZones, nodeMailer };

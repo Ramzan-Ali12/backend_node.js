@@ -1,4 +1,6 @@
+//.....mongoose........//
 const mongoose = require("mongoose");
+//......car Schema.....//
 const car = new mongoose.Schema({
   category: {
     type: mongoose.Schema.Types.ObjectId,
@@ -8,6 +10,7 @@ const car = new mongoose.Schema({
   color: { type: String },
   model: { type: String },
   make: { type: String },
-  registrationNo: { type: String, required: true },
+  registrationNo: { type: String },
 });
+//...export car model...//
 module.exports = mongoose.model("car", car);
