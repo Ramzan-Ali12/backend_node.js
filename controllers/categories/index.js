@@ -1,7 +1,7 @@
 //.....Mongoose.........//
 const { default: mongoose } = require("mongoose");
 
-//...categories mode.........//
+//...categories model.........//
 const Categories = require("../../models/category");
 
 //...........addCategories......//
@@ -22,7 +22,6 @@ const addCategory = async (req, res) => {
     // Save the new category to the database
     return res.status(200).send({ msg: "Category added Successfully", data });
   } catch (err) {
-    console.log(err);
     res.status(500).send({ msg: err.message });
   }
 };
@@ -50,8 +49,8 @@ const editCategory = async (req, res) => {
     res
       .status(200)
       .send({ msg: "Category Updated Successfully", updatedCategory });
-  } catch (error) {
-    res.status(500).send({ msg: error.message });
+  } catch (err) {
+    res.status(500).send({ msg: err.message });
   }
 };
 //.......getAllCategories................//
@@ -59,6 +58,10 @@ const getAllCategories = async (req, res) => {
   try {
     // Retrieve all categories from the database
     const categories = await Categories.find();
+    // check if the categories not found
+    if (!categories)
+      return res.status(404).send({ msg: "Categories not Found" });
+
     res
       .status(200)
       .send({ msg: "All Categories Retrieved Successfully", categories });
@@ -85,10 +88,11 @@ const deleteCategory = async (req, res) => {
     res
       .status(200)
       .send({ msg: "Category Deleted Successfully", deletedCategory });
-  } catch (error) {
-    res.status(500).send({ msg: error.message });
+  } catch (err) {
+    res.status(500).send({ msg: err.message });
   }
 };
+// ....Export Modules..........//
 module.exports = {
   addCategory,
   editCategory,
